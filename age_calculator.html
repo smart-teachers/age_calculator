@@ -1,0 +1,396 @@
+ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة العمر - أول أكتوبر 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #7f53ac 0%, #647dee 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            direction: rtl;
+            padding: 2rem 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: bold;
+        }
+        
+        .date-inputs {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .date-field {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .date-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .date-field select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            text-align: center;
+            appearance: none;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        .date-field select:focus {
+            border-color: #647dee;
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #7f53ac 0%, #647dee 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result h2 {
+            color: #4a4a4a;
+            margin-bottom: 1rem;
+        }
+        
+        .age-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        .age-box {
+            flex: 1;
+            padding: 1rem;
+            margin: 0 0.5rem;
+            background: linear-gradient(135deg, #7f53ac 0%, #647dee 100%);
+            color: white;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .age-box h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .age-box p {
+            font-size: 0.9rem;
+        }
+        
+        .fixed-date {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #647dee;
+            font-weight: bold;
+        }
+        
+        .admission-note {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: none;
+        }
+        
+        .kindergarten {
+            background-color: #ffebcd;
+            color: #ff8c00;
+            border: 2px solid #ffd700;
+        }
+        
+        .primary {
+            background-color: #e6f7ff;
+            color: #0066cc;
+            border: 2px solid #1e90ff;
+        }
+        
+        .too-young {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            text-align: center;
+            color: #555;
+            font-weight: bold;
+            font-size: 1rem;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .contact a {
+            color: #647dee;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .contact a:hover {
+            color: #7f53ac;
+            text-decoration: underline;
+        }
+        
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>حاسبة العمر في 1 أكتوبر 2025</h1>
+        
+        <div class="form-group">
+            <label for="birthdate">تاريخ الميلاد:</label>
+            <div class="date-inputs">
+                <div class="date-field">
+                    <label for="day">اليوم</label>
+                    <select id="day" required></select>
+                </div>
+                <div class="date-field">
+                    <label for="month">الشهر</label>
+                    <select id="month" required></select>
+                </div>
+                <div class="date-field">
+                    <label for="year">السنة</label>
+                    <select id="year" required></select>
+                </div>
+            </div>
+        </div>
+        
+        <button id="calculate">احسب العمر</button>
+        
+        <div class="result" id="result">
+            <h2>عمر الطفل في 1 أكتوبر 2025 سيكون:</h2>
+            
+            <div class="age-details">
+                <div class="age-box">
+                    <h3 id="years">-</h3>
+                    <p>سنة</p>
+                </div>
+                
+                <div class="age-box">
+                    <h3 id="months">-</h3>
+                    <p>شهر</p>
+                </div>
+                
+                <div class="age-box">
+                    <h3 id="days">-</h3>
+                    <p>يوم</p>
+                </div>
+            </div>
+            
+            <div class="fixed-date">
+                في تاريخ 1 أكتوبر 2025
+            </div>
+            
+            <div id="kindergarten-note" class="admission-note kindergarten">
+                يمكن قبول الطفل في مرحلة رياض الأطفال
+            </div>
+            
+            <div id="primary-note" class="admission-note primary">
+                يمكن قبول الطفل في الصف الأول الابتدائي
+            </div>
+            
+            <div id="too-young-note" class="admission-note too-young">
+                عمر الطفل أقل من السن المطلوب للقبول في رياض الأطفال
+            </div>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        جميع الحقوق محفوظة &copy; للأستاذ محمود صديق
+        <div class="contact">
+            <span>للتواصل واتس اب:</span>
+            <a href="https://wa.me/201279499127" target="_blank">
+                <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path fill="#25D366" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                </svg>
+                01279499127
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // إعداد القوائم المنسدلة للتاريخ
+        const daySelect = document.getElementById('day');
+        const monthSelect = document.getElementById('month');
+        const yearSelect = document.getElementById('year');
+        
+        // إضافة الأيام (1-31)
+        for (let i = 1; i <= 31; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            daySelect.appendChild(option);
+        }
+        
+        // إضافة الشهور (1-12) بأسمائها العربية
+        const arabicMonths = ['يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+        for (let i = 0; i < 12; i++) {
+            const option = document.createElement('option');
+            option.value = i + 1;
+            option.textContent = arabicMonths[i];
+            monthSelect.appendChild(option);
+        }
+        
+        // إضافة السنوات (من 1900 إلى السنة الحالية)
+        const currentYear = new Date().getFullYear();
+        for (let i = currentYear; i >= 1900; i--) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            yearSelect.appendChild(option);
+        }
+        
+        document.getElementById('calculate').addEventListener('click', function() {
+            const day = parseInt(daySelect.value);
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+            
+            if (!day || !month || !year) {
+                alert('الرجاء إدخال تاريخ الميلاد كاملاً');
+                return;
+            }
+            
+            // تاريخ 1 أكتوبر 2025
+            const targetDate = new Date(2025, 9, 1); // شهر أكتوبر هو الشهر 9 في JavaScript (0-11)
+            
+            // تاريخ الميلاد
+            const birthDate = new Date(year, month - 1, day); // نطرح 1 من الشهر لأن شهور JavaScript تبدأ من 0
+            
+            // حساب الفرق
+            let years = targetDate.getFullYear() - birthDate.getFullYear();
+            let months = targetDate.getMonth() - birthDate.getMonth();
+            let days = targetDate.getDate() - birthDate.getDate();
+            
+            // تعديل الشهور والأيام إذا كانت سالبة
+            if (days < 0) {
+                months--;
+                // إضافة عدد أيام الشهر السابق
+                const prevMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            // التحقق من صحة التاريخ
+            if (isNaN(birthDate.getTime()) || birthDate > targetDate) {
+                alert('الرجاء إدخال تاريخ ميلاد صحيح');
+                return;
+            }
+            
+            // عرض النتيجة
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+            document.getElementById('result').style.display = 'block';
+            
+            // إخفاء جميع الملاحظات أولاً
+            document.getElementById('kindergarten-note').style.display = 'none';
+            document.getElementById('primary-note').style.display = 'none';
+            document.getElementById('too-young-note').style.display = 'none';
+            
+            // إظهار الملاحظة حسب شروط العمر
+            if (years >= 6) {
+                // 6 سنوات أو أكثر: الصف الأول الابتدائي
+                document.getElementById('primary-note').style.display = 'block';
+            } else if (years >= 4) {
+                // 4 سنوات أو أكثر وأقل من 6: رياض الأطفال
+                document.getElementById('kindergarten-note').style.display = 'block';
+            } else {
+                // أقل من 4 سنوات: صغير جداً
+                document.getElementById('too-young-note').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
